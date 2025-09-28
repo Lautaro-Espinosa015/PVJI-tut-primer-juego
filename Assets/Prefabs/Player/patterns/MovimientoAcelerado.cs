@@ -1,16 +1,14 @@
 using UnityEngine;
 
-public class MovimientoAcelerado : MonoBehaviour
+public class MovimientoAcelerado : iMovementStrategy
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    private float velocidadActual = 0f; // Velocidad actual del jugador
+    private float aceleracion = 2f; // Aceleración del jugador
 
-    // Update is called once per frame
-    void Update()
+    public void Move(Transform transform, Player player)
     {
-        
+        velocidadActual += Input.GetAxis("Horizontal") * aceleracion*Time.deltaTime; // Incrementa la velocidad actual basado en la entrada vertical
+        velocidadActual = Mathf.Clamp(velocidadActual, -player.Velocity, player.Velocity); // Limita la velocidad actual a la velocidad lateral máxima
+        transform.Translate(velocidadActual * Time.deltaTime,0,0); // Mueve el jugador hacia adelante con la velocidad actual
     }
 }
