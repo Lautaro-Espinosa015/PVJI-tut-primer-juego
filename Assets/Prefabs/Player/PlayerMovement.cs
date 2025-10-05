@@ -16,17 +16,27 @@ public class PlayerMovement : MonoBehaviour
         fuerzaPorAplicar = new Vector3(0, 0, 450f); // Fuerza a aplicar en la dirección Z
         tiempoDesdeUltimaFuerza = 0f; // Inicializa el tiempo desde la última fuerza a 0
         intervaloTiempo = 2f; // Intervalo de tiempo de 2 segundos
-        player = new Player(5f, 2f); // Crea una nueva instancia de Player con velocidad 5 y aceleración 2
+        player = new Player(2f, 2f); // Crea una nueva instancia de Player con velocidad 5 y aceleración 2
         SetMovementStrategy(new MovimientoAcelerado()); // Establece la estrategia de movimiento a MovimientoLateral
     }
 
     // Update is called once per frame
     void Update()
     {
-        float direccion = Input.GetAxis("Horizontal"); // Obtiene la dirección horizontal del input
-        transform.Translate(transform.right * direccion * player.Velocity * Time.deltaTime); // Mueve el jugador lateralmente
-        movementStrategy.Move(transform, player); // Llama al método Move de la estrategia de movimiento
+        //float direccion = Input.GetAxis("Horizontal"); // Obtiene la dirección horizontal del input
+        //transform.Translate(direccion*player.Velocity*Time.deltaTime,0,0); // Mueve el jugador lateralmente
+        //movementStrategy.Move(transform, player, direccion); // Llama al método Move de la estrategia de movimiento
+        //iMovementStrategy.Move(transform, player, 0); // Llama al método Move de la estrategia de movimiento
+        MovePlayer(Input.GetAxis("Horizontal"));
+
     }
+
+    public void MovePlayer(float input)
+    {
+        movementStrategy.Move(transform, player, input); // Llama al método Move de la estrategia de movimiento
+    }
+
+
 
     private void FixedUpdate()
     {
